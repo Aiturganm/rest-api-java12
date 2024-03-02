@@ -2,6 +2,7 @@ package peaksoft.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import peaksoft.entity.Medicine;
 import peaksoft.entity.Pharmacy;
 import peaksoft.repository.PharmacyRepository;
 import peaksoft.service.PharmacyService;
@@ -25,6 +26,24 @@ public class PharmacyServiceImpl implements PharmacyService {
     }
 
     @Override
+    public Pharmacy update(Long id, Pharmacy pharmacy) {
+        Pharmacy pharmacy1 = pharmacyRepository.findById(id).orElseThrow();
+        pharmacy1.setName(pharmacy.getName());
+        pharmacy1.setAddress(pharmacy.getAddress());
+        return pharmacy1;
+    }
+
+    @Override
+    public void delete(Long id) {
+        pharmacyRepository.delete(pharmacyRepository.findById(id).orElseThrow());
+    }
+
+    @Override
+    public List<Medicine> getMedicinesByPharmacy(Long id) {
+        return pharmacyRepository.getMedicinesByPharmacy(id);
+    }
+
+    @Override
     public Pharmacy getPharmacyByWorkerId(Long workerId) {
         return pharmacyRepository.findByWorkerId(workerId);
     }
@@ -36,6 +55,6 @@ public class PharmacyServiceImpl implements PharmacyService {
 
     @Override
     public Pharmacy getPharmacyWithMostWorkers() {
-        return null;
+        return pharmacyRepository.getPharmacyWithMostWorkers();
     }
 }

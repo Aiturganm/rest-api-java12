@@ -36,6 +36,8 @@ public class Pharmacy {
 
 
 
+
+
     @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "pharmacy")
     private List<Worker> workers;
